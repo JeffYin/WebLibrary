@@ -1,0 +1,12 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+id = ID
+author.name = Name
+author.otherName = Other Name
+crud.title=CGC Toronto 图书馆
+checkout.title = Checkout
+checkout.inputLibarayCard = Please scan the library card
+checkout.scan.item.barcode = Please scan the barcode of the material
+library.card.barcode = library card barcode
+

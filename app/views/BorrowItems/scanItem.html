@@ -1,0 +1,72 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('checkout.title') /}
+
+<div id="crudBlank" >
+
+    <h2 id="crudBlankTitle">&{'checkout.inputLibarayCard'}</h2>
+    
+    <div class="objectForm">
+    #{form action:@scanItem()}
+        <input type='hidden' name='libraryCardBarcode' value='${flash.libraryCardBarcode}'>
+        &{'checkout.scan.item.barcode'}(type 0001): <input name="itemBarcode" id="itemBarcode" type="text" ><br>
+        <p class="crudButtons">
+            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+        </p>
+         
+    #{/form}
+    </div>
+    
+    <script type="text/javascript">
+    
+    var availableTags = [
+               			"ActionScript",
+               			"AppleScript",
+               			"Asp",
+               			"BASIC",
+               			"C",
+               			"C++",
+               			"Clojure",
+               			"COBOL",
+               			"ColdFusion",
+               			"Erlang",
+               			"Fortran",
+               			"Groovy",
+               			"Haskell",
+               			"Java",
+               			"JavaScript",
+               			"Lisp",
+               			"Perl",
+               			"PHP",
+               			"Python",
+               			"Ruby",
+               			"Scala",
+               			"Scheme"
+               		];
+    
+    $("#itemBarcode" ).autocomplete({
+    	 //source: availableTags,
+    	source: function( request, response ) {
+		$.ajax({
+			url: "@{Items.getByBarcode()}",
+			dataType: "json",
+			data: {
+				barcode: request.term
+				//name_startsWith: request.term
+			},
+			success: function( data ) {
+				response($.map( data, function( item ) {
+					return {
+						label: item.barcode + item.name,
+							value: item.barcode,
+					}
+				}));
+			}
+		});
+	},
+	
+	minLength: 2
+   });
+     
+    </script>   
+
+</div>

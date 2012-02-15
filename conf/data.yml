@@ -1,0 +1,98 @@
+
+Role(librarianRole):
+ code: librarian
+ name: 图书管理员
+
+
+Role(readerRole):
+ code: reader
+ name: 读者
+
+Role(adminRole):
+  code: admin
+  name: 超级管理员
+
+User(reader1):
+  uid: 123-abc
+  roles: [readerRole]
+  name: 张秋
+   
+User(librarian1):
+  uid: ccc-990
+  roles: [librarianRole] 
+  name: 殷振岭
+ 
+User(admin1):
+  uid: 333-diu
+  roles: [adminRole]  
+  name: 黄牧师
+  
+# --------Item Type ------------
+ItemType(book):
+ code: book
+ name: 图书
+ dueDay: 21
+ 
+ItemType(CD_DVD):
+ code: cd/dvd
+ name: CD/DVD
+ dueDay: 7  
+
+
+# -------- Library Cards --------------
+LibraryCard(card1):
+ barcode: 123456;
+ user: [reader1]
+ 
+LibraryCard(card2):
+ barcode: 11223344
+ user: [librarian1]
+ 
+  
+ 
+# Book Status 
+BookStatus(inShelf):
+  code: P
+  name: 书架上
+
+BookStatus(borrowed):
+  code: borrowed 
+  name: 已外借
+ 
+  
+
+Tag(bible):
+  name: 圣经
+  
+Tag(fellowship):
+  name: 团契
+  
+Author(author1):
+  name: 王明道
+  otherName: WangMingDao
+  
+Author(author2):
+ name: 宋尚节
+ otherName: SongShangJie
+ 
+Book(book1):
+  barcode: 0001
+  name: 聖經背景上冊
+  otherName: Biblical Backgrounds  Volume I
+  description: 关于圣经背景介绍的一本书
+  bibliograph: 203  ADA  1972
+  status: borrowed
+  authors: [author1, author2]
+  tags: [bible]
+  
+  
+Book(book2):
+  barcode: 0002
+  name: 赞美颂赞神的生活
+  description: 赞美再赞美，祷告再祷告
+  bibliograph: 110 UIU 2011
+  status: inShelf
+  authors: [author1]
+  tags: [fellowship]
+  
+  

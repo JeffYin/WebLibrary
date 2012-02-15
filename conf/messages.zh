@@ -1,0 +1,19 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+id = 系统编号
+author = 作者
+book = 图书
+barcode = 条码
+bibliograph = 数目编号
+coverImage = 封面
+
+
+author.name = 姓名
+author.otherName = 英文名
+
+book.otherName = 别名
+book.description = 简介
+book.translator = 翻译者
+book.callNumber = Call Number
+

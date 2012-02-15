@@ -1,0 +1,21 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('checkout.title') /}
+
+<div id="crudBlank" >
+
+    <h2 id="crudBlankTitle">&{'checkout.inputLibarayCard'}</h2>
+    
+    <div class="objectForm">
+    #{form action:@scanLibraryCard()}
+        &{'library.card.barcode'}(type 11): <input name="librarycardBarcode" type="text" ><br>
+        
+        <p class="crudButtons">
+            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+        </p>
+         
+    #{/form}
+    </div>
+    
+       
+
+</div>

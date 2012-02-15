@@ -1,0 +1,100 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.blank.title', type.modelName) /}
+
+<div id="crudBlank" class="${type.name}">
+
+    <h2 id="crudBlankTitle">&{'crud.blank.title', type.modelName}</h2>
+    Morning!
+    <div class="objectForm">
+    #{form action:@create(), enctype:'multipart/form-data'}
+        library card(type 11): <input id="librarycardBarcode" type="text" ><br>
+        item barcode(type 000): <input id="itemBarcode" type="text"><br>
+        
+        
+        <p class="crudButtons">
+            <input type="submit" name="_save" value="&{'crud.save', type.modelName}" />
+            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+            <input type="submit" name="_saveAndAddAnother" value="&{'crud.saveAndAddAnother', type.modelName}" />
+        </p>
+         <script type="text/javascript">
+	         var availableTags = [
+	                  			"ActionScript",
+	                  			"AppleScript",
+	                  			"Asp",
+	                  			"BASIC",
+	                  			"C",
+	                  			"C++",
+	                  			"Clojure",
+	                  			"COBOL",
+	                  			"ColdFusion",
+	                  			"Erlang",
+	                  			"Fortran",
+	                  			"Groovy",
+	                  			"Haskell",
+	                  			"Java",
+	                  			"JavaScript",
+	                  			"Lisp",
+	                  			"Perl",
+	                  			"PHP",
+	                  			"Python",
+	                  			"Ruby",
+	                  			"Scala",
+	                  			"Scheme"
+	                  		];
+	         
+	         $("#itemBarcode" ).autocomplete({
+	        	// source: availableTags
+	        	 
+	        	source: function( request, response ) {
+				$.ajax({
+					url: "@{Items.getByBarcode()}",
+					dataType: "json",
+					data: {
+						barcode: request.term
+						//name_startsWith: request.term
+					},
+					success: function( data ) {
+						response($.map( data, function( item ) {
+							return {
+								label: item.barcode + item.name,
+ 								value: item.barcode,
+							}
+						}));
+					}
+				});
+			},
+			minLength: 2
+		   });
+	         
+	         //Search by  the Item Barcode.
+	         $("#librarycardBarcode" ).autocomplete({
+	        	// source: availableTags
+	        	 
+	        	source: function( request, response ) {
+				$.ajax({
+					url: "@{LibraryCards.getByBarcode()}",
+					dataType: "json",
+					data: {
+						barcode: request.term
+						//name_startsWith: request.term
+					},
+					success: function( data ) {
+						response($.map( data, function( item ) {
+							return {
+								label: item.barcode + item.user.name,
+ 								value: item.barcode,
+							}
+						}));
+					}
+				});
+			},
+			minLength: 2
+		   });
+         </script>
+         
+    #{/form}
+    </div>
+    
+       
+
+</div>
