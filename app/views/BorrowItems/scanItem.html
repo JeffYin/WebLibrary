@@ -13,35 +13,23 @@
             <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
         </p>
          
+        <table>
+        <thead>
+            <tr>
+                <th>barcode</th>
+                <th>name</th>
+                <th width="13%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        </tbody>
+    </table>
+    
     #{/form}
     </div>
     
     <script type="text/javascript">
-    
-    var availableTags = [
-               			"ActionScript",
-               			"AppleScript",
-               			"Asp",
-               			"BASIC",
-               			"C",
-               			"C++",
-               			"Clojure",
-               			"COBOL",
-               			"ColdFusion",
-               			"Erlang",
-               			"Fortran",
-               			"Groovy",
-               			"Haskell",
-               			"Java",
-               			"JavaScript",
-               			"Lisp",
-               			"Perl",
-               			"PHP",
-               			"Python",
-               			"Ruby",
-               			"Scala",
-               			"Scheme"
-               		];
     
     $("#itemBarcode" ).autocomplete({
     	 //source: availableTags,
