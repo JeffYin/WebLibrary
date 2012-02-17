@@ -38,7 +38,7 @@ public class BorrowItems extends CRUD {
 	public static void scanLibraryCard(String librarycardBarcode) throws Exception {
 		List<LibraryCard> cards = LibraryCard.find("barcode like ?", "%"+librarycardBarcode +"%").fetch();
 		if (cards.size()>=1) {
-			flash.put("libraryCardBarcode", librarycardBarcode);
+			flash.put("libraryCardBarcode", cards.get(0).barcode);
 			
 			//TODO: prepare the page of scanning the material barcode.  
 			render("BorrowItems/scanItem.html");

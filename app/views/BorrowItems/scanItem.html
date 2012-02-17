@@ -21,7 +21,7 @@
                 <th width="13%">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="itemBody" >
     
         </tbody>
     </table>
@@ -52,7 +52,18 @@
 		});
 	},
 	
-	minLength: 2
+	minLength: 2,
+	select:function(event, ui) {
+		var tr = $("<tr></tr>");
+		$("<td></td>").html(ui.item.value).appendTo(tr);
+		$("<td></td>").html(ui.item.label).appendTo(tr);
+		$("<td>Delete</td>").appendTo(tr);
+		tr.appendTo("#itemBody");
+
+		ui.item.value = "";
+		ui.item.label = "";
+		
+	}
    });
      
     </script>   
