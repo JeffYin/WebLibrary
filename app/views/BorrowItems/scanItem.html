@@ -10,7 +10,7 @@
         <input type='hidden' name='libraryCardBarcode' value='${flash.libraryCardBarcode}'>
         &{'checkout.scan.item.barcode'}(type 0001): <input name="itemBarcode" id="itemBarcode" type="text" ><br>
         <p class="crudButtons">
-            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+            <input type="button" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
         </p>
          
         <table>
@@ -30,7 +30,36 @@
     </div>
     
     <script type="text/javascript">
+    $("#itemBarcode").keyup(function(e) {
+    		if(e.keyCode == 13) {
+    			e.preventDefault();
+				//TODO: do ajax call here
+				
+				 barcode = $("#itemBarcode").val();
+				
+				 $.ajax({
+						url: "@{Items.getByBarcode()}",
+						dataType: "json",
+						data: {
+							barcode: barcode
+							//name_startsWith: request.term
+						},
+						success: function( data ) {
+							var item = data[0];
+							var tr = $("<tr></tr>");
+							$("<td></td>").html(item.barcode).appendTo(tr);
+							$("<td></td>").html(item.name).appendTo(tr);
+							$("<td>Delete</td>").appendTo(tr);
+							tr.appendTo("#itemBody");
+							
+							$("#itemBarcode").val("");
+							
+							}
+					});
+    		}
+    	});
     
+    /*
     $("#itemBarcode" ).autocomplete({
     	 //source: availableTags,
     	source: function( request, response ) {
@@ -65,7 +94,7 @@
 		
 	}
    });
-     
+     */
     </script>   
 
 </div>
