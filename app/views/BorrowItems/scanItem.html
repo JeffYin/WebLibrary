@@ -6,7 +6,7 @@
     <h2 id="crudBlankTitle">&{'checkout.inputLibarayCard'}</h2>
     
     <div class="objectForm">
-    #{form action:@scanItem()}
+    <form>
         <input type='hidden' name='libraryCardBarcode' value='${flash.libraryCardBarcode}'>
         &{'checkout.scan.item.barcode'}(type 0001): <input name="itemBarcode" id="itemBarcode" type="text" ><br>
         <p class="crudButtons">
@@ -26,15 +26,14 @@
         </tbody>
     </table>
     
-    #{/form}
+    </form>
     </div>
     
     <script type="text/javascript">
-    $("#itemBarcode").keyup(function(e) {
+    
+    $("#itemBarcode").keypress(function(e) {
     		if(e.keyCode == 13) {
-    			e.preventDefault();
 				//TODO: do ajax call here
-				
 				 barcode = $("#itemBarcode").val();
 				
 				 $.ajax({
@@ -56,45 +55,13 @@
 							
 							}
 					});
+				 
+				 e.stopPropagation();
+	    			return false;
     		}
     	});
-    
-    /*
-    $("#itemBarcode" ).autocomplete({
-    	 //source: availableTags,
-    	source: function( request, response ) {
-		$.ajax({
-			url: "@{Items.getByBarcode()}",
-			dataType: "json",
-			data: {
-				barcode: request.term
-				//name_startsWith: request.term
-			},
-			success: function( data ) {
-				response($.map( data, function( item ) {
-					return {
-						label: item.barcode + item.name,
-							value: item.barcode,
-					}
-				}));
-			}
-		});
-	},
-	
-	minLength: 2,
-	select:function(event, ui) {
-		var tr = $("<tr></tr>");
-		$("<td></td>").html(ui.item.value).appendTo(tr);
-		$("<td></td>").html(ui.item.label).appendTo(tr);
-		$("<td>Delete</td>").appendTo(tr);
-		tr.appendTo("#itemBody");
-
-		ui.item.value = "";
-		ui.item.label = "";
-		
-	}
-   });
-     */
+         
+   
     </script>   
 
 </div>
