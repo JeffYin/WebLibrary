@@ -37,14 +37,14 @@
 				 barcode = $("#itemBarcode").val();
 				
 				 $.ajax({
-						url: "@{Items.getByBarcode()}",
+						url: "@{BorrowItems.scanItem()}",
 						dataType: "json",
 						data: {
 							barcode: barcode
 							//name_startsWith: request.term
 						},
 						success: function( data ) {
-							var item = data[0];
+							var item = data;
 							var tr = $("<tr></tr>");
 							$("<td></td>").html(item.barcode).appendTo(tr);
 							$("<td></td>").html(item.name).appendTo(tr);
@@ -53,7 +53,21 @@
 							
 							$("#itemBarcode").val("");
 							
-							}
+							},
+						
+						
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.\n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('The barcode is NOT found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else {
+				            	alert(jqXHR.responseText);
+				            }
+				        }
+							
 					});
 				 
 				 e.stopPropagation();

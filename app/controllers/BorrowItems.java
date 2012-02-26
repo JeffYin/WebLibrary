@@ -3,11 +3,17 @@ package controllers;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import javax.transaction.Status;
+
+import flexjson.JSONSerializer;
+
 import models.Item;
 import models.LibraryCard;
 
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
+import play.libs.WS.HttpResponse;
+import play.mvc.Http;
 
 public class BorrowItems extends CRUD {
 	public static void blank() throws Exception {
@@ -23,15 +29,27 @@ public class BorrowItems extends CRUD {
         }
 	}
 	
-	public static void scanItem(String itemBarcode) throws Exception {
-		List<Item> items = Item.find("barcode = ?", itemBarcode).fetch();
+	
+	//*
+	private static String toJson(Item item) {
+		JSONSerializer libraryCardListSerializer = new JSONSerializer().include("barcode", "name").exclude("*");
+		String json = libraryCardListSerializer.serialize(item);
+		return json;
+	}
+	//*/
+	
+	public static void scanItem(String barcode) throws Exception {
+		List<Item> items = Item.find("barcode = ?", barcode).fetch();
 		int numberFound = items.size();
 		if (numberFound==1) { /* found the exact item */
 			Item item = items.get(0);
+			String info = toJson(item);
+			renderJSON(info);
+			
 		} else if (numberFound==0) { /* found nothing */
-			
+			response.status =  404;
 		} else { /* more than one items found */
-			
+            response.status = 500;			
 		}
 	}
 	
