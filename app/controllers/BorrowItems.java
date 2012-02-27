@@ -30,13 +30,7 @@ public class BorrowItems extends CRUD {
 	}
 	
 	
-	//*
-	private static String toJson(Item item) {
-		JSONSerializer libraryCardListSerializer = new JSONSerializer().include("barcode", "name").exclude("*");
-		String json = libraryCardListSerializer.serialize(item);
-		return json;
-	}
-	//*/
+	
 	
 	public static void scanItem(String barcode) throws Exception {
 		List<Item> items = Item.find("barcode = ?", barcode).fetch();
@@ -62,7 +56,23 @@ public class BorrowItems extends CRUD {
 		}
 		
 	}
+	
+	/**
+	 * Complete the checkout action. 
+	 * @param libraryCardBarcode
+	 * @param itemBarcodeScanned
+	 */
+	public static void checkout(String libraryCardBarcode,String[] itemBarcodeScanned) {
+		System.out.println(libraryCardBarcode);
+	}
         
+	//*
+		private static String toJson(Item item) {
+			JSONSerializer libraryCardListSerializer = new JSONSerializer().include("barcode", "name").exclude("*");
+			String json = libraryCardListSerializer.serialize(item);
+			return json;
+		}
+		//*/
 	/*
 	public static void create() throws Exception {
         ObjectType type = ObjectType.get(getControllerClass());

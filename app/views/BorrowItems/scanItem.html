@@ -6,11 +6,11 @@
     <h2 id="crudBlankTitle">&{'checkout.inputLibarayCard'}</h2>
     
     <div class="objectForm">
-    <form>
+     <form action="@{BorrowItems.checkout()}", method='post'>
         <input type='hidden' name='libraryCardBarcode' value='${flash.libraryCardBarcode}'>
         &{'checkout.scan.item.barcode'}(type 0001): <input name="itemBarcode" id="itemBarcode" type="text" ><br>
         <p class="crudButtons">
-            <input type="button" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
         </p>
          
         <table>
