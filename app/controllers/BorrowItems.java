@@ -45,11 +45,10 @@ public class BorrowItems extends CRUD {
 			Item item = items.get(0);
 			String info = toJson(item);
 			renderJSON(info);
-			
 		} else if (numberFound==0) { /* found nothing */
-			response.status =  404;
+			response.status =  700;
 		} else { /* more than one items found */
-            response.status = 500;			
+            response.status = 710;			
 		}
 	}
 	

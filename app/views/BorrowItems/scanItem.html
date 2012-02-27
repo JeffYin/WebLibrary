@@ -31,6 +31,7 @@
     
     <script type="text/javascript">
     
+    var itemBarcodeScanned = 'itemBarcodeScanned';
     $("#itemBarcode").keypress(function(e) {
     		if(e.keyCode == 13) {
 				//TODO: do ajax call here
@@ -45,12 +46,17 @@
 						},
 						success: function( data ) {
 							var item = data;
-							var tr = $("<tr></tr>");
-							$("<td></td>").html(item.barcode).appendTo(tr);
-							$("<td></td>").html(item.name).appendTo(tr);
-							$("<td>Delete</td>").appendTo(tr);
-							tr.appendTo("#itemBody");
+							var barcode = item.barcode;
 							
+							if (!itemScanned(barcode)) {
+								var tr = $("<tr></tr>");
+								
+								var inputBarcode = $("<input type='text'>").attr('name', itemBarcodeScanned);
+								inputBarcode.val(barcode).appendTo($("<td></td>").html(barcode).appendTo(tr));
+								$("<td></td>").html(item.name).appendTo(tr);
+								$("<td>Delete</td>").appendTo(tr);
+								tr.appendTo("#itemBody");
+							}
 							$("#itemBarcode").val("");
 							
 							},
@@ -59,13 +65,18 @@
 						error: function(jqXHR, exception) {
 				            if (jqXHR.status === 0) {
 				                alert('Not connect.\n Verify Network.');
-				            } else if (jqXHR.status == 404) {
-				                alert('The barcode is NOT found. [404]');
-				            } else if (jqXHR.status == 500) {
-				                alert('Internal Server Error [500].');
-				            } else {
+				            } else if (jqXHR.status == 700) {
+				                alert('The barcode is NOT found.');
+				            } else if (jqXHR.status == 710) {
+				                alert('More than one materials are found.');
+				            } else if (jqXHR.status == 720) {
+				                alert('The material has been reported lost.');
+				            } else if (jqXHR.status == 730) {
+				                alert('The material is not checked in yet');
+				            }else {
 				            	alert(jqXHR.responseText);
 				            }
+				            $("#itemBarcode").val("");
 				        }
 							
 					});
@@ -75,6 +86,20 @@
     		}
     	});
          
+     //Check if the material barcode is scaned or not. 
+     function itemScanned(barcode){
+    	 var scanned = false; 
+    	 $(":input[name='itemBarcodeScanned']").each(function() {
+    		 if ($(this).val()==barcode) {
+    			 scanned = true; 
+    			 return false;
+    		 }
+    	 });
+    	 
+    	 return scanned;
+     }
+     
+     
    
     </script>   
 
