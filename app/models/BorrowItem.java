@@ -10,14 +10,14 @@ public class BorrowItem extends Model {
 	@Column
     public String libraryCardBarcode;
 	
-	public String userName;
+	public String userId;
 	
 	public String itemBarcode;
 
 	@Override
 	public String toString() {
 		return "BorrowItem [libraryCardBarcode=" + libraryCardBarcode
-				+ ", userName=" + userName + ", itemBarcode=" + itemBarcode
+				+ ", userId=" + userId + ", itemBarcode=" + itemBarcode
 				+ "]";
 	} 
 	

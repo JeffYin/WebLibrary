@@ -7,6 +7,7 @@ import javax.transaction.Status;
 
 import flexjson.JSONSerializer;
 
+import models.BorrowItem;
 import models.Item;
 import models.LibraryCard;
 
@@ -64,6 +65,27 @@ public class BorrowItems extends CRUD {
 	 */
 	public static void checkout(String libraryCardBarcode,String[] itemBarcodeScanned) {
 		System.out.println(libraryCardBarcode);
+		
+		//Get the userId of the library card. 
+		LibraryCard libCard = LibraryCard.find("barcode = ?", libraryCardBarcode).first();
+		String userId = "";
+		
+		if (libCard!=null) {
+			//TODO:Check if the libraryCard is still available. 
+			
+			//get the userId
+			userId = libCard.user.userid;
+		}
+		
+		for (String itemBarcode: itemBarcodeScanned) {
+			BorrowItem borrowItem = new BorrowItem(); 
+			borrowItem.itemBarcode = itemBarcode; 
+			borrowItem.libraryCardBarcode = libraryCardBarcode;
+			borrowItem.userId = userId;
+			
+			borrowItem.save();
+		}
+		
 	}
         
 	//*

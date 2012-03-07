@@ -13,17 +13,17 @@ Role(adminRole):
   name: 超级管理员
 
 User(reader1):
-  uid: 123-abc
+  userId: 123-abc
   roles: [readerRole]
   name: 张秋
    
 User(librarian1):
-  uid: ccc-990
+  userId: ccc-990
   roles: [librarianRole] 
   name: 殷振岭
  
 User(admin1):
-  uid: 333-diu
+  userId: 333-diu
   roles: [adminRole]  
   name: 黄牧师
   

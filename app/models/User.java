@@ -19,8 +19,8 @@ public class User extends BusinessModel{
 	public String authProvider;
 	    
 	/* This column is the internal key column. */
-	@Column(length=128)
-    public String uid;
+	@Column(length=128,name="uid")
+    public String userid;
     
 	@Column(length=64)
 	public String name; 
@@ -42,19 +42,19 @@ public class User extends BusinessModel{
     
     
     public User() {
-    	uid = UUID.randomUUID().toString();
+    	userid = UUID.randomUUID().toString();
     }
     
 	@Override
 	public String toString() {
-		return "Person [key=" + uid + ", roles=" + roles + "]";
+		return "Person [key=" + userid + ", roles=" + roles + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		return result;
 	}
@@ -68,10 +68,10 @@ public class User extends BusinessModel{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (uid == null) {
-			if (other.uid != null)
+		if (userid == null) {
+			if (other.userid != null)
 				return false;
-		} else if (!uid.equals(other.uid))
+		} else if (!userid.equals(other.userid))
 			return false;
 		if (roles == null) {
 			if (other.roles != null)
