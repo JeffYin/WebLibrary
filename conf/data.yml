@@ -50,12 +50,12 @@ LibraryCard(card2):
  
   
  
-# Book Status 
-BookStatus(inShelf):
+# Item Status 
+ItemStatus(inShelf):
   code: P
   name: 书架上
 
-BookStatus(borrowed):
+ItemStatus(borrowed):
   code: borrowed 
   name: 已外借
  
@@ -76,7 +76,7 @@ Author(author2):
  otherName: SongShangJie
  
 Book(book1):
-  barcode: 0001
+  barcode: "0001"
   name: 聖經背景上冊
   otherName: Biblical Backgrounds  Volume I
   description: 关于圣经背景介绍的一本书
@@ -87,7 +87,7 @@ Book(book1):
   
   
 Book(book2):
-  barcode: 0002
+  barcode: "0002"
   name: 赞美颂赞神的生活
   description: 赞美再赞美，祷告再祷告
   bibliograph: 110 UIU 2011

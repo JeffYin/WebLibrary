@@ -29,6 +29,6 @@ public class Book extends Item {
     
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="status_code",referencedColumnName="code")
-	public BookStatus status;
+	public ItemStatus status;
 	
 }

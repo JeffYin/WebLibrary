@@ -23,6 +23,9 @@ public class Item extends BusinessModel {
 	
 	public Integer dueDay; 
 	
+	@ManyToOne
+	public ItemStatus itemStatus;
+	
 	@Column
 	public ItemType type;
 

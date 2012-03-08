@@ -13,26 +13,11 @@ import javax.persistence.OneToMany;
 import play.db.jpa.Model;
 
 @Entity
-public class User extends BusinessModel{
+public class User extends Person{
     public String accessToken;
 	public String secret; 
 	public String authProvider;
 	    
-	/* This column is the internal key column. */
-	@Column(length=128,name="uid")
-    public String userid;
-    
-	@Column(length=64)
-	public String name; 
-	
-	@Column(length=64)
-	public String email;
-	
-	@Column(length=128)
-	public String phoneNumber; 
-	
-	public String address;
-	
 	
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Role> roles = new TreeSet();
@@ -42,19 +27,19 @@ public class User extends BusinessModel{
     
     
     public User() {
-    	userid = UUID.randomUUID().toString();
+    	
     }
     
 	@Override
 	public String toString() {
-		return "Person [key=" + userid + ", roles=" + roles + "]";
+		return "Person [key=" + personId + ", roles=" + roles + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
 		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		return result;
 	}
@@ -68,10 +53,10 @@ public class User extends BusinessModel{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (userid == null) {
-			if (other.userid != null)
+		if (personId == null) {
+			if (other.personId != null)
 				return false;
-		} else if (!userid.equals(other.userid))
+		} else if (!personId.equals(other.personId))
 			return false;
 		if (roles == null) {
 			if (other.roles != null)

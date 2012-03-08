@@ -3,18 +3,18 @@ package controllers;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import javax.transaction.Status;
-
-import flexjson.JSONSerializer;
-
 import models.BorrowItem;
 import models.Item;
+import models.ItemStatus;
 import models.LibraryCard;
 
+import org.joda.time.DateTime;
+
+import play.Play;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
-import play.libs.WS.HttpResponse;
-import play.mvc.Http;
+import utils.Globals;
+import flexjson.JSONSerializer;
 
 public class BorrowItems extends CRUD {
 	public static void blank() throws Exception {
@@ -74,20 +74,37 @@ public class BorrowItems extends CRUD {
 			//TODO:Check if the libraryCard is still available. 
 			
 			//get the userId
-			userId = libCard.user.userid;
+			userId = libCard.user.personId;
 		}
 		
 		for (String itemBarcode: itemBarcodeScanned) {
+			//TODO: Check if the item is expired.  
+			
+			Item item = Item.find("barcode = ?", itemBarcode).first();
+			Integer dueDay = item.dueDay;
+			//Get the due Date of the
+			if (dueDay==null) {
+				dueDay = Integer.parseInt(Play.configuration.getProperty("default_due_day"));
+			}
+						
 			BorrowItem borrowItem = new BorrowItem(); 
 			borrowItem.itemBarcode = itemBarcode; 
 			borrowItem.libraryCardBarcode = libraryCardBarcode;
 			borrowItem.userId = userId;
+			borrowItem.dueDate = new DateTime().plusDays(dueDay).toDate();
+			borrowItem.borrowedDate = new DateTime().toDate();
 			
 			borrowItem.save();
+			
+			//TODO: Change the status of the Item
+			ItemStatus itemStatus = ItemStatus.find("code = ?", Globals.ItemStatusBorrowedCode).first();
+			item.itemStatus = itemStatus;
+			item.save();
 		}
 		
 	}
         
+	 
 	//*
 		private static String toJson(Item item) {
 			JSONSerializer libraryCardListSerializer = new JSONSerializer().include("barcode", "name").exclude("*");

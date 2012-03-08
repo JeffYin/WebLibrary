@@ -14,7 +14,6 @@ public class LibraryCard extends BusinessModel {
   public Date createdDate;
   
   @ManyToOne(cascade=CascadeType.PERSIST)
-  @JoinColumn(name="uid", referencedColumnName="uid")
   public User user;
 
   public LibraryCard() {
