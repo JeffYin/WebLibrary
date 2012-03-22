@@ -102,6 +102,8 @@ public class BorrowItems extends CRUD {
 			item.save();
 		}
 		
+		redirect("/borrowitems/list");
+		
 	}
         
 	 
