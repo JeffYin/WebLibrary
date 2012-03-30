@@ -7,14 +7,19 @@
     
     <div class="objectForm">
     #{form action:@scanLibraryCard()}
-        &{'library.card.barcode'}(type 11): <input name="librarycardBarcode" type="text" ><br>
-        
+        &{'library.card.barcode'}(type 11): <input name="librarycardBarcode" id="librarycardBarcode" type="text" ><br>
+         
         <p class="crudButtons">
             <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
         </p>
          
     #{/form}
     </div>
+    
+    //focus on the library card barcode. 
+    <script type="text/javascript">
+       $("#librarycardBarcode").focus();
+    </script>
     
        
 
