@@ -7,6 +7,8 @@ import models.BorrowItem;
 import models.Item;
 import models.ItemStatus;
 import models.LibraryCard;
+import models.Person;
+import models.User;
 
 import org.joda.time.DateTime;
 
@@ -68,13 +70,14 @@ public class BorrowItems extends CRUD {
 		
 		//Get the userId of the library card. 
 		LibraryCard libCard = LibraryCard.find("barcode = ?", libraryCardBarcode).first();
-		String userId = "";
+		User reader = null;
 		
 		if (libCard!=null) {
 			//TODO:Check if the libraryCard is still available. 
 			
 			//get the userId
-			userId = libCard.user.personId;
+//			userId = libCard.user.personId;
+			reader = libCard.user;
 		}
 		
 		for (String itemBarcode: itemBarcodeScanned) {
@@ -88,9 +91,10 @@ public class BorrowItems extends CRUD {
 			}
 						
 			BorrowItem borrowItem = new BorrowItem(); 
-			borrowItem.itemBarcode = itemBarcode; 
+			borrowItem.item = item; 
 			borrowItem.libraryCardBarcode = libraryCardBarcode;
-			borrowItem.userId = userId;
+//			borrowItem.userId = userId;
+			borrowItem.reader = reader; 
 			borrowItem.dueDate = new DateTime().plusDays(dueDay).toDate();
 			borrowItem.borrowedDate = new DateTime().toDate();
 			

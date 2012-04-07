@@ -10,7 +10,7 @@ import play.db.jpa.Model;
 @Entity
 public class Person extends BusinessModel {
 	/* This column is the internal key column. */
-	@Column(length=128,name="uid")
+	@Column(length=128,name="uid",unique=true)
     public String personId;
     
 	@Column(length=64)

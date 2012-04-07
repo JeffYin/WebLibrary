@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import controllers.Persons;
 
@@ -14,22 +16,24 @@ public class BorrowItem extends Model {
 	@Column
     public String libraryCardBarcode;
 	
-	public String userId;
+	@ManyToOne
+	public User reader;
+//	public String userId;
 	
-	public String itemBarcode;
+	@ManyToOne
+	public Item item;
+	
+//	public String itemBarcode;
 
 	public Date borrowedDate; //The day when the item was borrowed.  
 	
 	public Date dueDate; //The day when the item should return to the library. 
-	
-	
+
 	@Override
 	public String toString() {
 		return "BorrowItem [libraryCardBarcode=" + libraryCardBarcode
-				+ ", userId=" + userId + ", itemBarcode=" + itemBarcode
-				+ "]";
-	} 
-	
-	
+				+ ", reader=" + reader + ", item=" + item + ", borrowedDate="
+				+ borrowedDate + ", dueDate=" + dueDate + "]";
+	}
 
 }
