@@ -3,6 +3,7 @@ package controllers;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import models.BorrowItem;
 import models.Item;
 
 import play.db.Model;
@@ -22,10 +23,12 @@ public class Checkins extends CRUD{
 	public static void scanItem(String barcode) throws Exception {
 		// 
 		//TODO: Lookup the barcode from the borrowed material.
-		List<Item> items = Item.find("barcode = ?", barcode).fetch();
+		List<BorrowItem> items = BorrowItem.find("item.barcode = ?", barcode).fetch();
+		
 		int numberFound = items.size();
 		if (numberFound==1) { /* found the exact item */
-			Item item = items.get(0);
+			BorrowItem borrowItem = items.get(0);
+			Item item = borrowItem.item;
 			String info = toJson(item);
 			renderJSON(info);
 		} else if (numberFound==0) { /* found nothing */

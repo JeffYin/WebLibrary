@@ -2,7 +2,6 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlAnyAttribute;
 
 @Entity
 public class ItemStatus extends BusinessModel {

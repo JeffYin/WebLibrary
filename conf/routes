@@ -6,6 +6,7 @@
 GET     /                                       Application.index
 GET     /librarycards/getbybarcode			    LibraryCards.getByBarcode
 GET     /borrowitems/scanitem			        BorrowItems.scanItem
+GET     /checkins/scanitem			            Checkins.scanItem
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
