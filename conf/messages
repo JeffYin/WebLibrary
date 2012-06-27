@@ -10,3 +10,4 @@ checkout.inputLibarayCard = Please scan the library card
 checkout.scan.item.barcode = Please scan the barcode of the material
 library.card.barcode = library card barcode
 
+checkin.scanItem = Please scan the returned material barcode.
