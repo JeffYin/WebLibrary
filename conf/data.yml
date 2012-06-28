@@ -52,7 +52,7 @@ LibraryCard(card2):
  
 # Item Status 
 ItemStatus(inShelf):
-  code: P
+  code: shell
   name: 书架上
 
 ItemStatus(borrowed):

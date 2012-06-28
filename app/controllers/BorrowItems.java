@@ -40,12 +40,19 @@ public class BorrowItems extends CRUD {
 		int numberFound = items.size();
 		if (numberFound==1) { /* found the exact item */
 			Item item = items.get(0);
-			String info = toJson(item);
-			renderJSON(info);
+			//Check the Status
+			ItemStatus itemStatus = item.itemStatus; 
+			if ((itemStatus!=null) && (itemStatus.code.equalsIgnoreCase(Globals.ItemStatus_Shelf))) {
+				String info = toJson(item);
+				renderJSON(info);	
+			} else {
+				response.status = Globals.Error_Item_NotOnShelf; /* Item is not on the shelves */
+			}
+			
 		} else if (numberFound==0) { /* found nothing */
-			response.status =  700;
+			response.status =  Globals.Error_Item_FoundNothing;
 		} else { /* more than one items found */
-            response.status = 710;			
+            response.status = Globals.Error_Item_FoundMoreThanOne;			
 		}
 	}
 	
@@ -100,8 +107,8 @@ public class BorrowItems extends CRUD {
 			
 			borrowItem.save();
 			
-			//TODO: Change the status of the Item
-			ItemStatus itemStatus = ItemStatus.find("code = ?", Globals.ItemStatusBorrowedCode).first();
+			//Change the status of the Item
+			ItemStatus itemStatus = ItemStatus.find("code = ?", Globals.ItemStatus_BorrowedCode).first();
 			item.itemStatus = itemStatus;
 			item.save();
 		}

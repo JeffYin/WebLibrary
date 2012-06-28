@@ -28,6 +28,8 @@ public class BorrowItem extends Model {
 	public Date borrowedDate; //The day when the item was borrowed.  
 	
 	public Date dueDate; //The day when the item should return to the library. 
+	
+	public Date returnedDate; //The date when the item is returned to the library. 
 
 	@Override
 	public String toString() {
