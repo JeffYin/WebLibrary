@@ -44,9 +44,9 @@ public class Checkins extends CRUD{
 			
 			renderJSON(info);
 		} else if (numberFound==0) { /* found nothing */
-			response.status =  700;
+			response.status =  Globals.Error_Item_FoundNothing;
 		} else { /* more than one items found */
-            response.status = 710;			
+            response.status = Globals.Error_Item_FoundMoreThanOne;			
 		}
 	}
 	
